@@ -5,7 +5,7 @@
       "name": "Iphone 8",
       "description": "The iPhone 8 has a Liquid Retina Display that debuted the previous generation in the iPhone XR. The resolution is 1,792 x 828 pixels, and, at 6.1-inches diagonally, equates to 326ppi. For comparison, the pro models have 458ppi with their OLED screens.",
       "image": "https://i.pinimg.com/564x/f4/db/e9/f4dbe9008f9dcb13b9bd6788b2848660.jpg",
-      "count": 0,
+      "quantity": 0,
       "price": 300
     },
     {
@@ -13,7 +13,7 @@
       "name": "Iphone xs",
       "description": "The iPhone XS has a Liquid Retina Display that debuted the previous generation in the iPhone XR. The resolution is 1,792 x 828 pixels, and, at 6.1-inches diagonally, equates to 326ppi. For comparison, the pro models have 458ppi with their OLED screens.",
       "image": "https://i.pinimg.com/564x/99/d9/21/99d92122975f8c5e4faba41293f8f951.jpg",
-      "count": 0,
+      "quantity": 0,
       "price": 450
     },
     {
@@ -21,7 +21,7 @@
       "name": "Iphone 11",
       "description": "The iPhone 11 has a Liquid Retina Display that debuted the previous generation in the iPhone XR. The resolution is 1,792 x 828 pixels, and, at 6.1-inches diagonally, equates to 326ppi. For comparison, the pro models have 458ppi with their OLED screens.",
       "image": "https://i.pinimg.com/564x/1d/89/53/1d8953b382f9fffca27523a86cff36b9.jpg",
-      "count": 0,
+      "quantity": 0,
       "price": 500
     },
     {
@@ -29,7 +29,7 @@
       "name": "Iphone 12",
       "description": "Super Retina XDR display 6.1‑inch (diagonal) all‑screen OLED display 2532‑by‑1170-pixel resolution at 460 ppi HDR display True Tone Wide color (P3) Haptic Touch 2,000,000:1 contrast ratio (typical)",
       "image": "https://i.pinimg.com/564x/cd/8e/c0/cd8ec0f9a723ea5e8eacaa983d646cab.jpg",
-      "count": 0,
+      "quantity": 0,
       "price": 550
     },
     {
@@ -37,7 +37,7 @@
       "name": "Iphone 13",
       "description": "The iPhone 13 has a Liquid Retina Display that debuted the previous generation in the iPhone XR. The resolution is 1,792 x 828 pixels, and, at 6.1-inches diagonally, equates to 326ppi. For comparison, the pro models have 458ppi with their OLED screens.",
       "image": "https://i.pinimg.com/564x/0e/26/08/0e2608eb3883b1842d44fdb697cc21e8.jpg",
-      "count": 0,
+      "quantity": 0,
       "price": 800
     },
     {
@@ -45,7 +45,7 @@
       "name": "Iphone 14",
       "description": "The iPhone 14 has a Liquid Retina Display that debuted the previous generation in the iPhone XR. The resolution is 1,792 x 828 pixels, and, at 6.1-inches diagonally, equates to 326ppi. For comparison, the pro models have 458ppi with their OLED screens.",
       "image": "https://i.pinimg.com/564x/26/be/56/26be56634ad9773c9d8f6315cac2cba7.jpg",
-      "count": 0,
+      "quantity": 0,
       "price": 1100
     }
   ]

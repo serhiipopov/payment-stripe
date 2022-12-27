@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { loadStripe } from '@stripe/stripe-js';
+import axios from 'axios';
 import {
   Box,
   Button,
@@ -10,23 +12,52 @@ import {
   Text
 } from '@chakra-ui/react';
 
+const publishableKey = `${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`;
+const stripePromise = loadStripe(publishableKey);
+
 const MobileItem = ({ mobile }) => {
-  const [isCount, setCount] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [item, setItem] = useState(mobile);
 
-  const { name, description, price, image } = mobile;
+  const totalPrice = item.quantity * item.price;
 
-  const increment = () => setCount((prevState) => prevState + 1);
-  const decrement = () => setCount((prevState) => (prevState === 0 ? prevState : prevState - 1));
+  const changeCount = (value) => {
+    setItem({ ...item, quantity: Math.max(0, value) });
+  };
 
-  const isTotalPrice = `Total $ ${isCount * price}`;
+  const onNumberChange = (e) => {
+    changeCount(parseInt(e.target.value));
+  };
+
+  const onQuantityPlus = () => {
+    changeCount(item.quantity + 1);
+  };
+
+  const onQuantityMinus = () => {
+    changeCount(item.quantity - 1);
+  };
+
+  const createCheckOutSession = async () => {
+    setLoading(true);
+    const stripe = await stripePromise;
+    const checkoutSession = await axios.post('/api/create-stripe-session', {
+      item: item,
+    });
+    const result = await stripe.redirectToCheckout({
+      sessionId: checkoutSession.data.id,
+    });
+
+    if (result.error) {
+      console.log(result.error.message);
+    }
+    setLoading(false);
+  };
+
+  const isTotalPrice = `Total $ ${totalPrice}`;
 
   return (
-    <Box
-      h='full'
-      paddingX='80'
-      paddingY='28'
-    >
-      <Stack spacing='4'>
+    <Box h='full' paddingX={{ base: '12', lg: '80' }} paddingY={{ base: '12', lg: '28' }}>
+      <Stack spacing='4' borderRadius='lg' borderColor='gray.400' borderWidth='1px' p='10'>
         <Heading
           as='h2'
           fontWeight='extrabold'
@@ -34,23 +65,32 @@ const MobileItem = ({ mobile }) => {
           textTransform='uppercase'
           letterSpacing='wider'
         >
-          {name}
+          {item.name}
         </Heading>
         <Center w='60' h='80' borderRadius='md' overflow='hidden'>
-          <Image src={image} alt={name} w='full' h='full' />
+          <Image src={item.image} alt={item.name} w='full' h='full' />
         </Center>
-        <Text>{description}</Text>
-        <Text fontWeight='bold' fontSize='2xl'>{price}</Text>
+        <Text>{item.description}</Text>
+        <Text fontWeight='bold' fontSize='2xl'>{item.price}</Text>
 
         <Flex justifyContent='space-between' alignItems='center'>
-          <Button variant='outline' size='lg' bg='blue.200' disabled={isCount === 0} onClick={decrement}>-</Button>
-          <Text fontWeight='medium' fontSize='xl'>{isCount}</Text>
-          <Button variant='outline' size='lg' bg='blue.300' onClick={increment}>+</Button>
+          <Button variant='outline' size='lg' bg='blue.200' disabled={item.quantity === 0} onClick={onQuantityMinus}>-</Button>
+          <Text fontWeight='medium' fontSize='xl'  onChange={onNumberChange}>{item.quantity}</Text>
+          <Button variant='outline' size='lg' bg='blue.300' onClick={onQuantityPlus}>+</Button>
         </Flex>
 
         <Flex justifyContent='space-between' alignItems='center'>
           <Text fontWeight='bold' fontSize='2xl'>{isTotalPrice}</Text>
-          <Button variant='outline' w='40' size='lg' bg='gray.400' disabled={isCount === 0}>Buy</Button>
+          <Button
+            variant='outline'
+            w='40'
+            size='lg'
+            bg='gray.400'
+            onClick={createCheckOutSession}
+            disabled={item.quantity === 0}
+          >
+            {loading ? 'Processing...' : 'Buy'}
+          </Button>
         </Flex>
       </Stack>
     </Box>
