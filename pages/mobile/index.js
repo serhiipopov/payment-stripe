@@ -10,7 +10,7 @@ const Mobile = ({ mobiles }) => {
       paddingY='16'
       paddingX={{ base: '6', lg: '40' }}
     >
-      <Center>
+      <Center pt='12'>
         <Heading pb='6' as='h1' fontWeight='extrabold' textTransform='uppercase'>Apple</Heading>
       </Center>
       <Grid templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)', xl: 'repeat(3, 1fr)' }} gap='6'>

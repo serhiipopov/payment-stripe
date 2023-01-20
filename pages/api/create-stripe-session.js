@@ -4,7 +4,10 @@ async function CreateStripeSession(req, res) {
   const { item } = req.body;
 
   if (req.method === 'POST') {
-    const redirectURL = 'http://localhost:3000';
+    const redirectURL =
+      process.env.NODE_ENV === 'development'
+        ? 'http://localhost:3000'
+        : 'https://stripe-checkout-next-js-demo.vercel.app';
 
     const transformedItem = {
       quantity: item.quantity,
