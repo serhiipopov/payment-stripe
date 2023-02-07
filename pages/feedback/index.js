@@ -1,6 +1,6 @@
 import { buildFeedbackPath, extractFeedback } from '../../helpers';
 import Button from '../../src/components/ui/button'
-import { Container, Flex, Text } from '@chakra-ui/react';
+import { Box, Container, Flex, Stack, Text } from '@chakra-ui/react';
 import { useState } from 'react';
 
 const FeedbackPage = (props) => {
@@ -12,18 +12,22 @@ const FeedbackPage = (props) => {
       .then((response) => response.json())
       .then((data) => {
         setFeedbackData(data.feedback)
-      });
+      })
   }
 
   return (
     <Container px={'12'} py={'32'}>
-      {feedbackData && <Text>{feedbackData?.name}</Text>}
-      {feedbackItems.map((item) => (
-        <Flex justifyContent='space-between' alignItems='center' key={item.id}>
-          <Text>{item.text}</Text>
-          <Button onClick={() => loadFeedbackHandler(item.id)}>show details</Button>
-        </Flex>
-      ))}
+      <Stack spacing='4'>
+        {feedbackItems.map((item) => (
+          <Flex justifyContent='space-between' alignItems='center' key={item.id}>
+            <Box>
+              {feedbackData && <Text>{feedbackData?.name}</Text>}
+              <Text>{item.text}</Text>
+            </Box>
+            <Button onClick={() => loadFeedbackHandler(item.id)}>show details</Button>
+          </Flex>
+        ))}
+      </Stack>
     </Container>
   );
 };

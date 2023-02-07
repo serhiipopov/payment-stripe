@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { buildFeedbackPath, extractFeedback } from '../../helpers/index';
+import { buildFeedbackPath, extractFeedback } from '../../../helpers';
 
 const handler = (req, res) => {
   if (req.method === 'POST') {

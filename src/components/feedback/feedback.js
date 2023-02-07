@@ -57,13 +57,21 @@ const FeedbackForm = () => {
             value={formFields.text}
             onChange={formHandler}
           />
-          <Button type='submit'>send</Button>
+          <Button disabled={!formFields.name || !formFields.text } type='submit'>send</Button>
 
           <Button onClick={loadFeedbackHandler}>load feedback</Button>
           <>
             {feedbackItems.map((item) => (
-              <Stack spacing='2' key={item.id}>
-                <Text>{item.text}</Text>
+              <Stack
+                key={item.id}
+                spacing='1'
+                p='2'
+                borderWidth='1px'
+                borderColor='gray.200'
+                borderRadius='lg'
+              >
+                <Text fontWeight='bold'>{item.name}</Text>
+                <Text fontWeight='medium' fontSize='lg'>{item.text}</Text>
               </Stack>
             ))}
           </>
