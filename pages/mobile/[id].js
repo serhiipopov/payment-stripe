@@ -11,6 +11,7 @@ import {
   Stack,
   Text
 } from '@chakra-ui/react';
+import FeedbackForm from '../../src/components/feedback/feedback';
 
 const publishableKey = `${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`;
 const stripePromise = loadStripe(publishableKey);
@@ -56,44 +57,47 @@ const MobileItem = ({ mobile }) => {
   const isTotalPrice = `Total $ ${totalPrice}`;
 
   return (
-    <Box h='full' paddingX={{ base: '12', lg: '80' }} paddingY={{ base: '12', lg: '28' }}>
-      <Stack spacing='4' borderRadius='lg' borderColor='gray.400' borderWidth='1px' p='10'>
-        <Heading
-          as='h2'
-          fontWeight='extrabold'
-          fontSize='3xl'
-          textTransform='uppercase'
-          letterSpacing='wider'
-        >
-          {item.name}
-        </Heading>
-        <Center w='60' h='80' borderRadius='md' overflow='hidden'>
-          <Image src={item.image} alt={item.name} w='full' h='full' />
-        </Center>
-        <Text>{item.description}</Text>
-        <Text fontWeight='bold' fontSize='2xl'>{item.price}</Text>
-
-        <Flex justifyContent='space-between' alignItems='center'>
-          <Button variant='outline' size='lg' bg='blue.200' disabled={item.quantity === 0} onClick={onQuantityMinus}>-</Button>
-          <Text fontWeight='medium' fontSize='xl'  onChange={onNumberChange}>{item.quantity}</Text>
-          <Button variant='outline' size='lg' bg='blue.300' onClick={onQuantityPlus}>+</Button>
-        </Flex>
-
-        <Flex justifyContent='space-between' alignItems='center'>
-          <Text fontWeight='bold' fontSize='2xl'>{isTotalPrice}</Text>
-          <Button
-            variant='outline'
-            w='40'
-            size='lg'
-            bg='gray.400'
-            onClick={createCheckOutSession}
-            disabled={item.quantity === 0}
+    <Flex justifyContent='space-between' h='full' paddingX={{ base: '12', lg: '40' }} paddingY={{ base: '12', lg: '28' }}>
+      <Box w='60%'>
+        <Stack spacing='4' borderRadius='lg' borderColor='gray.400' borderWidth='1px' p='10'>
+          <Heading
+            as='h2'
+            fontWeight='extrabold'
+            fontSize='3xl'
+            textTransform='uppercase'
+            letterSpacing='wider'
           >
-            {loading ? 'Processing...' : 'Buy'}
-          </Button>
-        </Flex>
-      </Stack>
-    </Box>
+            {item.name}
+          </Heading>
+          <Center w='60' h='80' borderRadius='md' overflow='hidden'>
+            <Image src={item.image} alt={item.name} w='full' h='full' />
+          </Center>
+          <Text>{item.description}</Text>
+          <Text fontWeight='bold' fontSize='2xl'>{item.price}</Text>
+
+          <Flex justifyContent='space-between' alignItems='center'>
+            <Button variant='outline' size='lg' bg='blue.200' disabled={item.quantity === 0} onClick={onQuantityMinus}>-</Button>
+            <Text fontWeight='medium' fontSize='xl'  onChange={onNumberChange}>{item.quantity}</Text>
+            <Button variant='outline' size='lg' bg='blue.300' onClick={onQuantityPlus}>+</Button>
+          </Flex>
+
+          <Flex justifyContent='space-between' alignItems='center'>
+            <Text fontWeight='bold' fontSize='2xl'>{isTotalPrice}</Text>
+            <Button
+              variant='outline'
+              w='40'
+              size='lg'
+              bg='gray.400'
+              onClick={createCheckOutSession}
+              disabled={item.quantity === 0}
+            >
+              {loading ? 'Processing...' : 'Buy'}
+            </Button>
+          </Flex>
+        </Stack>
+      </Box>
+      <FeedbackForm />
+    </Flex>
   );
 };
 

@@ -1,8 +1,7 @@
-import { Center, Container, Grid, GridItem, Heading } from '@chakra-ui/react';
-import Link from 'next/link';
-import MobileCard from '../../src/components/mobile-card/mobile-card';
+import { Center, Container, Heading, Stack } from '@chakra-ui/react';
+import MobileList from '../../src/components/mobile-list/mobile-list';
 
-const Mobile = ({ mobiles }) => {
+const Mobiles = ({ mobiles }) => {
   return (
     <Container
       minW='full'
@@ -10,23 +9,17 @@ const Mobile = ({ mobiles }) => {
       paddingY='16'
       paddingX={{ base: '6', lg: '40' }}
     >
-      <Center pt='12'>
-        <Heading pb='6' as='h1' fontWeight='extrabold' textTransform='uppercase'>Apple</Heading>
-      </Center>
-      <Grid templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)', xl: 'repeat(3, 1fr)' }} gap='6'>
-        {mobiles?.map((mobile) => (
-          <GridItem key={mobile.id}>
-            <Link href={`/mobile/${mobile.id}`}>
-              <MobileCard image={mobile.image} price={mobile.price} name={mobile.name} />
-            </Link>
-          </GridItem>
-        ))}
-      </Grid>
+      <Stack spacing='6'>
+        <Center pt='12'>
+          <Heading pb='6' as='h1' fontWeight='extrabold' textTransform='uppercase'>Apple</Heading>
+        </Center>
+        <MobileList list={mobiles} />
+      </Stack>
     </Container>
   );
 };
 
-export default Mobile;
+export default Mobiles;
 
 export const getServerSideProps = async () => {
   const { mobiles } = await import('/data/data.json')
