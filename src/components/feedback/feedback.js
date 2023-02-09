@@ -45,7 +45,7 @@ const FeedbackForm = () => {
           <Input
             id='name'
             type='name'
-            placeholder='your name'
+            placeholder='Your name'
             value={formFields.name}
             onChange={formHandler}
           />
@@ -53,7 +53,7 @@ const FeedbackForm = () => {
             id='text'
             type='text'
             rows={4}
-            placeholder='feedback'
+            placeholder='Feedback'
             value={formFields.text}
             onChange={formHandler}
           />
