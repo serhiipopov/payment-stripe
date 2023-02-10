@@ -11,7 +11,7 @@ import {
   Stack,
   Text
 } from '@chakra-ui/react';
-import FeedbackForm from '../../src/components/feedback/feedback';
+import Comments from '../../src/components/comments/comments';
 
 const publishableKey = `${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`;
 const stripePromise = loadStripe(publishableKey);
@@ -57,8 +57,13 @@ const MobileItem = ({ mobile }) => {
   const isTotalPrice = `Total $ ${totalPrice}`;
 
   return (
-    <Flex justifyContent='space-between' h='full' paddingX={{ base: '12', lg: '40' }} paddingY={{ base: '12', lg: '28' }}>
-      <Box w='60%'>
+    <Flex
+      justifyContent='space-between'
+      h='full'
+      paddingX={{ base: '6', lg: '24' }}
+      paddingY={{ base: '12', lg: '28' }}
+    >
+      <Box w='50%'>
         <Stack spacing='4' borderRadius='lg' borderColor='gray.400' borderWidth='1px' p='10'>
           <Heading
             as='h2'
@@ -96,7 +101,7 @@ const MobileItem = ({ mobile }) => {
           </Flex>
         </Stack>
       </Box>
-      <FeedbackForm />
+      <Comments eventId={item.id} />
     </Flex>
   );
 };
