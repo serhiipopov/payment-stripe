@@ -1,11 +1,10 @@
-import { MongoClient } from 'mongodb';
 import { method } from '../../../src/constants';
-import { MONGO_URL } from '../../../helpers/mongodb';
+import { connectDatabase } from '../../../helpers/db';
 
 async function handler(req, res) {
   const eventId = req.query.eventId;
 
-  const client = await MongoClient.connect(MONGO_URL);
+  const client = await connectDatabase();
 
   if (req.method === method.POST) {
     const { email, name, text } = req.body;
