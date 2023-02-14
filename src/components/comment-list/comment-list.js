@@ -4,8 +4,8 @@ import Comment from '../comment/comment';
 const CommentList = ({ items }) => {
   return (
     <Stack>
-      {items.map(({ id, name, text }) =>
-        <Comment key={id} name={name} text={text} />
+      {items.map(({ _id, name, text }) =>
+        <Comment key={_id} name={name} text={text} />
       )}
     </Stack>
   );

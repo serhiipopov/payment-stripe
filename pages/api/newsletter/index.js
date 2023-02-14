@@ -1,5 +1,6 @@
 import { MongoClient } from 'mongodb';
 import { method } from '../../../src/constants';
+import { MONGO_URL } from '../../../helpers/mongodb';
 
 async function handler(req, res) {
   if (req.method === method.POST) {
@@ -10,11 +11,9 @@ async function handler(req, res) {
       return
     }
 
-    const client = await MongoClient.connect('mongodb+srv://serhii3001:aT82hHlTExxS4p5L@cluster0.me33jvi.mongodb.net/newsletter?retryWrites=true&w=majority')
+    const client = await MongoClient.connect(MONGO_URL)
     const db = client.db()
-
-    await db.collection('emails').insertOne({ email: userEmail })
-
+    await db.collection('newsletter').insertOne({ email: userEmail })
     await client.close()
 
     res.status(201).json({ message: 'Signed up!' })
