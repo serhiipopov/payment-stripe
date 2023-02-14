@@ -1,6 +1,7 @@
+import { MongoClient } from 'mongodb';
 import { method } from '../../../src/constants';
 
-function handler(req, res) {
+async function handler(req, res) {
   if (req.method === method.POST) {
     const userEmail = req.body.email
 
@@ -9,7 +10,13 @@ function handler(req, res) {
       return
     }
 
-    console.log(userEmail)
+    const client = await MongoClient.connect('mongodb+srv://serhii3001:aT82hHlTExxS4p5L@cluster0.me33jvi.mongodb.net/newsletter?retryWrites=true&w=majority')
+    const db = client.db()
+
+    await db.collection('emails').insertOne({ email: userEmail })
+
+    await client.close()
+
     res.status(201).json({ message: 'Signed up!' })
   }
 }
