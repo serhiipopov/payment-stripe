@@ -1,6 +1,6 @@
 import { Grid, Input, Stack, Textarea } from '@chakra-ui/react';
 import { useState } from 'react';
-import Button from '../ui/button';
+import Button from '../ui/button/button';
 
 const NewComment = ({ onAddComment }) => {
   const [setIsInvalid] = useState(false)

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { method } from '../../constants';
 import { Box, Stack } from '@chakra-ui/react';
-import Button from '../ui/button';
+import Button from '../ui/button/button';
 import CommentList from '../comment-list/comment-list';
 import NewComment from '../new-comment/new-comment';
 

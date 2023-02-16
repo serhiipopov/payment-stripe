@@ -1,15 +1,23 @@
+import { useRef, useContext } from 'react';
 import { Box, Center, Input, Stack } from '@chakra-ui/react';
-import Button from '../ui/button';
+import Button from '../ui/button/button';
+import NotificationContext from '../../../store/notification-context';
 import { method } from '../../constants';
-import { useRef } from 'react';
 
 const NewsletterRegistration = () => {
   const emailInputRef = useRef();
+  const notificationCtx = useContext(NotificationContext);
 
   const registrationHandler = (e) => {
     e.preventDefault()
 
     const enteredEmail = emailInputRef.current?.value;
+
+    notificationCtx.showNotification({
+      title: 'Signing up...',
+      message: 'Registering for newsletter',
+      status: 'pending',
+    })
 
     fetch('/api/newsletter', {
       method: method.POST,
@@ -18,8 +26,29 @@ const NewsletterRegistration = () => {
         'Content-Type': 'application/json',
       }
     })
-      .then((response) => response.json())
-      .then((data) => console.log(data))
+      .then((response) => {
+        if (response.ok) {
+          return response.json()
+        }
+
+        return response.json().then(data => {
+          throw new Error(data.message || 'Something went wrong!')
+        })
+      })
+      .then((data) => {
+        notificationCtx.showNotification({
+          title: 'Success',
+          message: 'Successfully registered for newsletter',
+          status: 'success',
+        })
+      })
+      .catch((error) => {
+        notificationCtx.showNotification({
+          title: 'Error!',
+          message: error.message || 'Something went wrong!',
+          status: 'error',
+        })
+      })
   }
 
   return (
