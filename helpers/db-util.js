@@ -1,9 +1,11 @@
 import { MongoClient } from 'mongodb';
 
-export const MONGO_URL = 'mongodb+srv://serhii3001:aT82hHlTExxS4p5L@cluster0.me33jvi.mongodb.net/mobile?retryWrites=true&w=majority';
+const env = process.env;
+
+export const connectingUrl = `mongodb+srv://${env.USERNAME}:${env.PASSWORD}@${env.CLUSTERNAME}.me33jvi.mongodb.net/${env.DATABASE}?retryWrites=true&w=majority`;
 
 export async function connectDatabase() {
-  return await MongoClient.connect(MONGO_URL);
+  return await MongoClient.connect(connectingUrl);
 }
 
 export async function insertDocument(client, collection, document) {
