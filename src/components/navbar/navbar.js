@@ -27,7 +27,7 @@ const Navbar = () => {
         </Box>
 
         <ModalCustom isOpen={isOpen} onClose={onClose}>
-          <AuthForm />
+          <AuthForm onClose={onClose} />
         </ModalCustom>
 
       </Flex>

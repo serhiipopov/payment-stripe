@@ -9,7 +9,7 @@ import {
 
 const ModalCustom = ({ isOpen, onClose, children }) => {
   return (
-    <Modal isOpen={isOpen} onClose={onClose} isCentered>
+    <Modal isOpen={isOpen} onClose={onClose} isCentered size='xl'>
       <ModalOverlay />
       <ModalContent p='2'>
         <ModalCloseButton/>
