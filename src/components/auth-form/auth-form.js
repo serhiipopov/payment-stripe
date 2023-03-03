@@ -1,4 +1,4 @@
-import {useRef, useState} from 'react';
+import { useRef, useState } from 'react';
 import {
   Box,
   Button,
@@ -7,6 +7,7 @@ import {
   Stack,
   Text
 } from '@chakra-ui/react';
+import { signIn } from 'next-auth/react';
 import { method } from '../../constants';
 
 async function createUser(email, password) {
@@ -19,7 +20,6 @@ async function createUser(email, password) {
   })
 
   const data = await response.json();
-
   if (!response.ok) {
     throw new Error(data.message || 'Something went wrong!')
   }
@@ -34,23 +34,30 @@ const AuthForm = ({ onClose }) => {
 
   const switchAuthModelHandler = () => setIsLogin(prevState => !prevState);
 
-  const submitHandler = async (e) => {
+  const submitHandler = async(e) => {
     e.preventDefault();
 
-    const email = emailRef.current?.value;
-    const password = passwordRef.current?.value;
+    const enteredEmail = emailRef.current?.value;
+    const enteredPassword = passwordRef.current?.value;
 
     if (isLogin) {
-      //
+      const result = await signIn('credentials', {
+        redirect: false,
+        email: enteredEmail,
+        password: enteredPassword,
+      })
+
+      if (!result.error ) {
+        // set some auth state
+      }
+
     } else {
       try {
-        const result = await createUser(email, password);
-        console.log(result)
+        await createUser(enteredEmail, enteredPassword);
       } catch (e) {
         console.log(e)
       }
     }
-    
     onClose();
   }
 

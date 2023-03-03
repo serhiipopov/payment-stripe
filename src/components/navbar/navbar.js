@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { useSession, signOut } from 'next-auth/react';
 import { 
   Box,
   Button,
@@ -12,6 +13,11 @@ import AuthForm from '../auth-form/auth-form';
 
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { data: session, loading } = useSession();
+
+  const logoutHandler = async() => {
+    await signOut()
+  }
 
   return (
     <Box>
@@ -19,12 +25,11 @@ const Navbar = () => {
         <HStack spacing='6' px='10' py='6' fontSize='lg' fontWeight='medium'>
           <Link href='/'>Main</Link>
           <Link href='/mobile'>Mobile</Link>
+          { session && <Link href='/profile'>Profile</Link> }
         </HStack>
 
-        <Box>
-          <Button onClick={onOpen}>Login</Button>
-          <Button>Logout</Button>
-        </Box>
+        { !session && !loading &&  <Button onClick={onOpen}>Login</Button> }
+        { session && <Button onClick={logoutHandler}>Logout</Button> }
 
         <ModalCustom isOpen={isOpen} onClose={onClose}>
           <AuthForm onClose={onClose} />

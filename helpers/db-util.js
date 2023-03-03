@@ -14,6 +14,12 @@ export async function insertDocument(client, collection, document) {
   return await db.collection(collection).insertOne(document);
 }
 
+export async function findOneValue(client, collection, value) {
+  const db = client.db();
+
+  return await db.collection(collection).findOne(value);
+}
+
 export async function getAllDocuments(client, collection, sort) {
   const db = client.db()
 
