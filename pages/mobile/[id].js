@@ -81,9 +81,28 @@ const MobileItem = ({ mobile }) => {
           <Text fontWeight='bold' fontSize='2xl'>{item.price}</Text>
 
           <Flex justifyContent='space-between' alignItems='center'>
-            <Button variant='outline' size='lg' bg='blue.200' disabled={item.quantity === 0} onClick={onQuantityMinus}>-</Button>
+            <Button
+              variant='outline'
+              size='lg'
+              bg='cyan.600'
+              color='gray.100'
+              _hover={{ bg: 'cyan.500' }}
+              disabled={item.quantity === 0}
+              onClick={onQuantityMinus}
+            >
+              -
+            </Button>
             <Text fontWeight='medium' fontSize='xl'  onChange={onNumberChange}>{item.quantity}</Text>
-            <Button variant='outline' size='lg' bg='blue.300' onClick={onQuantityPlus}>+</Button>
+            <Button
+              variant='outline'
+              size='lg'
+              bg='cyan.800'
+              color='gray.100'
+              _hover={{ bg: 'cyan.500' }}
+              onClick={onQuantityPlus}
+            >
+              +
+            </Button>
           </Flex>
 
           <Flex justifyContent='space-between' alignItems='center'>
@@ -92,7 +111,9 @@ const MobileItem = ({ mobile }) => {
               variant='outline'
               w='40'
               size='lg'
-              bg='gray.400'
+              bg='cyan.900'
+              color='gray.100'
+              _hover={{ bg: 'cyan.500' }}
               onClick={createCheckOutSession}
               disabled={item.quantity === 0}
             >

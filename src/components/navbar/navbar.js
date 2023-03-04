@@ -2,22 +2,17 @@ import Link from 'next/link';
 import { useSession, signOut } from 'next-auth/react';
 import { 
   Box,
-  Button,
   Divider,
   Flex,
-  HStack, 
-  useDisclosure 
+  HStack,
+  Button as ChakraButton
 } from '@chakra-ui/react';
-import ModalCustom from '../ui/modal/modal';
-import AuthForm from '../auth-form/auth-form';
+import Button from '../ui/button/button';
 
 const Navbar = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const { data: session, loading } = useSession();
+  const { data: session, status } = useSession();
 
-  const logoutHandler = async() => {
-    await signOut()
-  }
+  const logoutHandler = () => signOut();
 
   return (
     <Box>
@@ -28,12 +23,17 @@ const Navbar = () => {
           { session && <Link href='/profile'>Profile</Link> }
         </HStack>
 
-        { !session && !loading &&  <Button onClick={onOpen}>Login</Button> }
-        { session && <Button onClick={logoutHandler}>Logout</Button> }
-
-        <ModalCustom isOpen={isOpen} onClose={onClose}>
-          <AuthForm onClose={onClose} />
-        </ModalCustom>
+        { !session && status !== 'loading' &&  <Button link='/auth'>Login</Button> }
+        { session &&
+          <ChakraButton
+            bg='cyan.700'
+            color='gray.50'
+            _hover={{ bg: 'cyan.500' }}
+            onClick={logoutHandler}
+          >
+            Logout
+          </ChakraButton>
+        }
 
       </Flex>
       <Divider orientation='horizontal' w='full' borderColor='gray.400' opacity='1' />

@@ -1,36 +1,21 @@
 import { useRef, useState } from 'react';
+import { signIn } from 'next-auth/react';
 import {
   Box,
   Button,
-  Center,
+  Center, Flex,
   Input,
   Stack,
   Text
 } from '@chakra-ui/react';
-import { signIn } from 'next-auth/react';
-import { method } from '../../constants';
+import { createUser } from '../../api/user';
+import {useRouter} from 'next/router';
 
-async function createUser(email, password) {
-  const response = await fetch('/api/auth/signup', {
-    method: method.POST,
-    body: JSON.stringify({ email, password }),
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-
-  const data = await response.json();
-  if (!response.ok) {
-    throw new Error(data.message || 'Something went wrong!')
-  }
-
-  return data;
-}
-
-const AuthForm = ({ onClose }) => {
+const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
   const emailRef = useRef();
   const passwordRef = useRef();
+  const router = useRouter();
 
   const switchAuthModelHandler = () => setIsLogin(prevState => !prevState);
 
@@ -48,7 +33,7 @@ const AuthForm = ({ onClose }) => {
       })
 
       if (!result.error ) {
-        // set some auth state
+        await router.replace('/profile')
       }
 
     } else {
@@ -58,63 +43,74 @@ const AuthForm = ({ onClose }) => {
         console.log(e)
       }
     }
-    onClose();
   }
 
   return (
-    <form onSubmit={submitHandler}>
-      <Stack spacing='4' p='4'>
-        <Center>
-          <Text fontWeight='bold' fontSize='2xl'>
-            {isLogin ? 'Login' : 'Sign Up'}
-          </Text>
-        </Center>
-        <Box>
+    <Center borderRadius='lg' borderColor='gray.200' borderWidth='1px' py='6' bg='gray.100'>
+      <form onSubmit={submitHandler}>
+        <Stack spacing='4' p='4' w='96'>
           <Center>
-            <Text fontSize='xl'>Email</Text>
-          </Center>
-          <Input
-            id='email-auth'
-            type='email'
-            variant='outline'
-            placeholder='Your email'
-            size='lg'
-            ref={emailRef}
-            required
-          />
-        </Box>
-        <Box>
-          <Center>
-            <Text fontSize='xl'>Password</Text>
-          </Center>
-          <Input
-            id='password-auth'
-            type='password'
-            variant='outline'
-            placeholder='Your password'
-            size='lg'
-            ref={passwordRef}
-            required
-          />
-        </Box>
-        <Box>
-          <Center>
-            <Button size='lg' type='submit' maxW='48'>
-              {isLogin ? 'Login' : 'Create Account'}
-            </Button>
-          </Center>
-          <Center>
-            <Text
-              color='orange.500'
-              as='button'
-              onClick={switchAuthModelHandler}
-            >
-              {isLogin ? 'Create new account' : 'Login with existing account'}
+            <Text fontWeight='semibold' fontSize='4xl'>
+              {isLogin ? 'Login' : 'Sign Up'}
             </Text>
           </Center>
-        </Box>
-      </Stack>
-    </form>
+          <Box>
+            <Center>
+              <Text fontSize='xl'>Email</Text>
+            </Center>
+            <Input
+              id='email-auth'
+              type='email'
+              variant='outline'
+              placeholder='Your email'
+              size='lg'
+              bg='gray.50'
+              ref={emailRef}
+              required
+            />
+          </Box>
+          <Box>
+            <Center>
+              <Text fontSize='xl'>Password</Text>
+            </Center>
+            <Input
+              id='password-auth'
+              type='password'
+              variant='outline'
+              placeholder='Your password'
+              size='lg'
+              bg='gray.50'
+              ref={passwordRef}
+              required
+            />
+          </Box>
+          <Box>
+            <Center>
+              <Button
+                size='lg'
+                type='submit'
+                maxW='48'
+                bg='cyan.700'
+                color='gray.100'
+                _hover={{ bg: 'cyan.500' }}
+              >
+                {isLogin ? 'Login' : 'Create Account'}
+              </Button>
+            </Center>
+            <Center>
+              <Text
+                color='cyan.700'
+                _hover={{ color: 'cyan.500' }}
+                as='button'
+                onClick={switchAuthModelHandler}
+              >
+                {isLogin ? 'Create new account' : 'Login with existing account'}
+              </Text>
+            </Center>
+          </Box>
+        </Stack>
+      </form>
+    </Center>
   );
 };
 

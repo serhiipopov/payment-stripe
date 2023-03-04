@@ -26,7 +26,7 @@ async function handler(req, res) {
 
   const existingUser = await findOneValue(client, 'users', { email: email })
 
-  if(existingUser) {
+  if (existingUser) {
     res.status(422).json({ message: 'User exists already!' })
     await client.close();
     return;
