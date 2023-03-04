@@ -1,13 +1,7 @@
-import { useContext } from 'react';
 import { Container } from '@chakra-ui/react';
 import Navbar from '../navbar/navbar';
-import Notification from '../ui/notification/notification';
-import NotificationContext from '../../../store/notification-context';
 
 const BaseLayout = ({ children }) => {
-  const notificationCtx = useContext(NotificationContext)
-  const activeNotification = notificationCtx.notification
-
   return (
     <>
       <Container
@@ -28,14 +22,6 @@ const BaseLayout = ({ children }) => {
       >
         {children}
       </Container>
-
-      {activeNotification &&
-        <Notification
-          title={activeNotification.title}
-          message={activeNotification.message}
-          status={activeNotification.status}
-        />
-      }
     </>
   );
 };
