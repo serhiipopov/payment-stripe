@@ -30,5 +30,11 @@ export default NextAuth({
         return { email: user.email }
       }
     })
-  ]
+  ],
+  pages: {
+    signIn: '/auth/session',
+    signOut: '/auth',
+    error: '/auth/error',
+  },
+  database: process.env.DATABASE_URL
 })
