@@ -31,3 +31,9 @@ export async function getAllDocuments(client, collection, sort) {
 
   return documents;
 }
+
+export async function  updateOneValue(client, collection, ...updateItem) {
+  const db = client.db();
+
+  return await db.collection(collection).updateOne(...updateItem);
+}

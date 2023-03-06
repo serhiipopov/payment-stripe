@@ -1,8 +1,22 @@
 import { getSession } from 'next-auth/react';
 import { Container } from '@chakra-ui/react';
 import ProfileView from '../../src/components/profile-view/profile-view';
+import {method} from '../../src/constants';
 
 const Profile = () => {
+  const changePasswordHandler = async(passwordData) => {
+    const response = await fetch('/api/user/change-password', {
+      method: method.PATCH,
+      body: JSON.stringify(passwordData),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+
+    const data = response.json();
+    console.log(data)
+  }
+
   return (
     <Container
       minW='full'
@@ -10,7 +24,7 @@ const Profile = () => {
       paddingY='48'
       paddingX={{ base: '6', lg: '12' }}
     >
-      <ProfileView />
+      <ProfileView onChangePassword={changePasswordHandler} />
     </Container>
   );
 };
