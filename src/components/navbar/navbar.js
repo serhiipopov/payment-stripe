@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useSession, signOut } from 'next-auth/react';
-import { 
+import {
   Box,
   Divider,
   Flex,
@@ -8,6 +8,7 @@ import {
   Button as ChakraButton
 } from '@chakra-ui/react';
 import Button from '../ui/button/button';
+import { routes } from '../../constants';
 
 const Navbar = () => {
   const { data: session, status } = useSession();
@@ -16,14 +17,19 @@ const Navbar = () => {
 
   return (
     <Box>
-      <Flex justifyContent='space-between' alignItems='center' bg='gray.50' px='4'>
+      <Flex justifyContent='space-between' alignItems='center' bg='gray.100' px='12'>
         <HStack spacing='6' px='10' py='6' fontSize='lg' fontWeight='medium'>
-          <Link href='/'>Main</Link>
-          <Link href='/mobile'>Mobile</Link>
-          { session && <Link href='/profile'>Profile</Link> }
+          <Link href={routes.main}>Main</Link>
+          <Link href={routes.mobile}>Mobile</Link>
+          { session && <Link href={routes.profile}>Profile</Link> }
         </HStack>
 
-        { !session && status !== 'loading' &&  <Button link='/auth'>Login</Button> }
+        { !session && status !== 'loading' &&
+          <Box fontSize='lg'fontWeight='medium' color='cyan.800' _hover={{ color: 'cyan.500' }}>
+            <Button link={routes.auth}>Login</Button>
+          </Box>
+        }
+
         { session &&
           <ChakraButton
             bg='cyan.700'
@@ -36,7 +42,7 @@ const Navbar = () => {
         }
 
       </Flex>
-      <Divider orientation='horizontal' w='full' borderColor='gray.400' opacity='1' />
+      <Divider orientation='horizontal' w='full' borderWidth='1px' borderColor='cyan.700' opacity='1' />
     </Box>
   );
 };

@@ -3,10 +3,9 @@ import { Button } from '@chakra-ui/react';
 
 const CustomButton = ({ 
   onClick, 
-  link, 
-  disabled, 
-  type,
-  children 
+  link,
+  children,
+  ...props
 }) => {
   if (link) {
     return (
@@ -15,7 +14,9 @@ const CustomButton = ({
   }
 
   return (
-    <Button disabled={disabled} type={type} size='lg' onClick={onClick}>{children}</Button>
+    <Button size='lg' onClick={onClick} {...props}>
+      {children}
+    </Button>
   )
 };
 

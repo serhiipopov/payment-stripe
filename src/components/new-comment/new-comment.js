@@ -26,58 +26,65 @@ const NewComment = ({ onAddComment }) => {
     }
 
     onAddComment({ email, name, text })
+    setFormFields({ email: '', name: '', text: '' })
   }
 
   const formHandler = (event) => {
     const { id, value } = event.target;
-    setFormFields({ ...formFields, [id]: value });
+    setFormFields({...formFields, [id]: value})
   }
 
   return (
-    <>
-      <form onSubmit={sendCommentHandler}>
-        <Stack
-          spacing='4'
-          borderColor='gray.200'
-          borderWidth='1px'
-          borderRadius='lg'
-          bg='gray.200'
-          p='4'
-        >
+    <form onSubmit={sendCommentHandler}>
+      <Stack
+        spacing='4'
+        borderColor='gray.200'
+        borderWidth='1px'
+        borderRadius='lg'
+        bg='gray.200'
+        p='4'
+      >
 
-          <Grid gap='3' templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)' }}>
-            <Input
-              id='email'
-              type='email'
-              placeholder='Your email'
-              value={email}
-              onChange={formHandler}
-              bg='gray.50'
-            />
-            <Input
-              id='name'
-              type='text'
-              placeholder='Your name'
-              value={name}
-              onChange={formHandler}
-              bg='gray.50'
-            />
-          </Grid>
-
-          <Textarea
-            id='text'
-            type='text'
-            rows={4}
-            placeholder='Your comment'
-            value={text}
+        <Grid gap='3' templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)' }}>
+          <Input
+            id='email'
+            type='email'
+            placeholder='Your email'
+            value={email}
             onChange={formHandler}
             bg='gray.50'
           />
-          <Button disabled={!name || !text || !email} type='submit'>Send</Button>
-        </Stack>
+          <Input
+            id='name'
+            type='text'
+            placeholder='Your name'
+            value={name}
+            onChange={formHandler}
+            bg='gray.50'
+          />
+        </Grid>
 
-      </form>
-    </>
+        <Textarea
+          id='text'
+          type='text'
+          rows={4}
+          placeholder='Your comment'
+          value={text}
+          onChange={formHandler}
+          bg='gray.50'
+        />
+        <Button
+          type='submit'
+          bg='cyan.700'
+          color='gray.50'
+          _hover={{ bg: 'cyan.500' }}
+          disabled={!name || !text || !email}
+        >
+          Send
+        </Button>
+      </Stack>
+
+    </form>
   );
 };
 

@@ -1,9 +1,9 @@
-import { method } from '../../../src/constants';
 import {
   connectDatabase,
   insertDocument,
   getAllDocuments
 } from '../../../helpers/db-util';
+import { method } from '../../../src/constants';
 
 async function handler(req, res) {
   const eventId = req.query.eventId;

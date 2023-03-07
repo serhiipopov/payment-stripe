@@ -1,11 +1,11 @@
 import { getSession } from 'next-auth/react';
 import { Container } from '@chakra-ui/react';
 import ProfileView from '../../src/components/profile-view/profile-view';
-import {method} from '../../src/constants';
+import {apiRoutes, method, routes} from '../../src/constants';
 
 const Profile = () => {
   const changePasswordHandler = async(passwordData) => {
-    const response = await fetch('/api/user/change-password', {
+    const response = await fetch(apiRoutes.changePassword, {
       method: method.PATCH,
       body: JSON.stringify(passwordData),
       headers: {
@@ -14,7 +14,6 @@ const Profile = () => {
     })
 
     const data = response.json();
-    console.log(data)
   }
 
   return (
@@ -35,7 +34,7 @@ export const getServerSideProps = async(context) => {
   if(!session) {
     return {
       redirect: {
-        destination: '/auth',
+        destination: routes.auth,
         permanent: false
       }
     }

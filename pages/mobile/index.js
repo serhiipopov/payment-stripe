@@ -11,7 +11,15 @@ const Mobiles = ({ mobiles }) => {
     >
       <Stack spacing='6'>
         <Center pt='12'>
-          <Heading pb='6' as='h1' fontWeight='extrabold' textTransform='uppercase'>Apple</Heading>
+          <Heading
+            as='h1'
+            color='cyan.900'
+            fontSize='4xl'
+            fontWeight='medium'
+            textTransform='uppercase'
+          >
+            Apple
+          </Heading>
         </Center>
         <MobileList list={mobiles} />
       </Stack>

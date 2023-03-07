@@ -1,7 +1,7 @@
 import { getSession } from 'next-auth/react';
-import { method } from '../../../src/constants';
 import { connectDatabase, findOneValue, updateOneValue } from '../../../helpers/db-util';
 import { hashPassword, verifyPassword } from '../../../helpers/auth';
+import { method } from '../../../src/constants';
 
 async function handler(req, res) {
   if (req.method !== method.PATCH) {

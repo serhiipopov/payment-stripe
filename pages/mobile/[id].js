@@ -12,6 +12,7 @@ import {
   Text
 } from '@chakra-ui/react';
 import Comments from '../../src/components/comments/comments';
+import {apiRoutes} from '../../src/constants';
 
 const publishableKey = `${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`;
 const stripePromise = loadStripe(publishableKey);
@@ -41,7 +42,7 @@ const MobileItem = ({ mobile }) => {
   const createCheckOutSession = async () => {
     setLoading(true);
     const stripe = await stripePromise;
-    const checkoutSession = await axios.post('/api/create-stripe-session', {
+    const checkoutSession = await axios.post(apiRoutes.stripeSession, {
       item: item,
     });
     const result = await stripe.redirectToCheckout({
@@ -60,7 +61,7 @@ const MobileItem = ({ mobile }) => {
     <Flex
       justifyContent='space-between'
       h='full'
-      paddingX={{ base: '6', lg: '24' }}
+      paddingX={{ base: '6', lg: '32', xl: '80' }}
       paddingY={{ base: '12', lg: '28' }}
     >
       <Box w='50%'>

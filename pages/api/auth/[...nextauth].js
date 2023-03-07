@@ -31,11 +31,6 @@ export default NextAuth({
       }
     })
   ],
-  pages: {
-    signIn: '/auth/session',
-    signOut: '/auth',
-    error: '/auth/error',
-  },
   secret: process.env.NEXTAUTH_SECRET,
   database: process.env.DATABASE_URL
 })

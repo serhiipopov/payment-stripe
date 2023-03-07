@@ -4,6 +4,7 @@ import { getSession } from 'next-auth/react'
 import { Container } from '@chakra-ui/react';
 import AuthForm from '../../src/components/auth-form/auth-form';
 import SpinnerWrapper from '../../src/components/ui/spinner/spinner';
+import { routes } from '../../src/constants';
 
 const Auth = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -12,7 +13,7 @@ const Auth = () => {
   useEffect(() => {
     getSession().then(session => {
       if (session) {
-        router.replace('/')
+        router.replace(routes.main)
       } else {
         setIsLoading(false)
       }

@@ -1,15 +1,16 @@
+import { useRouter } from 'next/router';
 import { useRef, useState } from 'react';
 import { signIn } from 'next-auth/react';
 import {
   Box,
   Button,
-  Center, Flex,
+  Center,
   Input,
   Stack,
   Text
 } from '@chakra-ui/react';
 import { createUser } from '../../api/user';
-import {useRouter} from 'next/router';
+import { routes } from '../../constants';
 
 const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -33,7 +34,7 @@ const AuthForm = () => {
       })
 
       if (!result.error ) {
-        await router.replace('/profile')
+        await router.replace(routes.profile)
       }
 
     } else {
@@ -43,6 +44,8 @@ const AuthForm = () => {
         console.log(e)
       }
     }
+
+    e.target.reset()
   }
 
   return (
@@ -50,7 +53,7 @@ const AuthForm = () => {
       <form onSubmit={submitHandler}>
         <Stack spacing='4' p='4' w='96'>
           <Center>
-            <Text fontWeight='semibold' fontSize='4xl'>
+            <Text fontWeight='semibold' fontSize='4xl' color='cyan.800'>
               {isLogin ? 'Login' : 'Sign Up'}
             </Text>
           </Center>

@@ -24,6 +24,8 @@ const ProfileView = ({ onChangePassword }) => {
       oldPassword: enteredOldPassword,
       newPassword: enteredNewPassword
     })
+
+    e.target.reset()
   }
 
   return (

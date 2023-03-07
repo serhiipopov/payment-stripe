@@ -1,9 +1,11 @@
+import { method } from '../../src/constants';
+
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 async function CreateStripeSession(req, res) {
   const { item } = req.body;
 
-  if (req.method === 'POST') {
+  if (req.method === method.POST) {
     const redirectURL =
       process.env.NODE_ENV === 'development'
         ? 'http://localhost:3000'
