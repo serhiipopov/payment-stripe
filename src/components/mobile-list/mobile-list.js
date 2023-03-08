@@ -9,7 +9,11 @@ const MobileList = ({ list }) => {
       {list.map((mobile) => (
         <GridItem key={mobile.id}>
           <Link href={`${routes.mobile}/${mobile.id}`}>
-            <MobileCard image={mobile.image} price={mobile.price} name={mobile.name} />
+            <MobileCard
+              image={mobile.image}
+              price={mobile.price}
+              name={mobile.name}
+            />
           </Link>
         </GridItem>
       ))}

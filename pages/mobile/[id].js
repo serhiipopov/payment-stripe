@@ -12,7 +12,7 @@ import {
   Text
 } from '@chakra-ui/react';
 import Comments from '../../src/components/comments/comments';
-import {apiRoutes} from '../../src/constants';
+import { apiRoutes } from '../../src/constants';
 
 const publishableKey = `${process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}`;
 const stripePromise = loadStripe(publishableKey);
@@ -118,7 +118,7 @@ const MobileItem = ({ mobile }) => {
               onClick={createCheckOutSession}
               disabled={item.quantity === 0}
             >
-              {loading ? 'Processing...' : 'Buy'}
+              Buy
             </Button>
           </Flex>
         </Stack>

@@ -1,9 +1,9 @@
-import { Grid, Input, Stack, Textarea } from '@chakra-ui/react';
 import { useState } from 'react';
+import { Grid, Input, Stack, Textarea } from '@chakra-ui/react';
 import Button from '../ui/button/button';
 
 const NewComment = ({ onAddComment }) => {
-  const [setIsInvalid] = useState(false)
+  const [isInvalid, setIsInvalid] = useState(false)
   const [formFields, setFormFields] = useState({
     name: '',
     email: '',
@@ -31,7 +31,7 @@ const NewComment = ({ onAddComment }) => {
 
   const formHandler = (event) => {
     const { id, value } = event.target;
-    setFormFields({...formFields, [id]: value})
+    setFormFields({ ...formFields, [id]: value })
   }
 
   return (

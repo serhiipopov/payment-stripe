@@ -20,12 +20,12 @@ export async function findOneValue(client, collection, value) {
   return await db.collection(collection).findOne(value);
 }
 
-export async function getAllDocuments(client, collection, sort) {
+export async function getAllDocuments(client, collection, productId, sort) {
   const db = client.db()
 
   const documents = await db
     .collection(collection)
-    .find()
+    .find(productId)
     .sort(sort)
     .toArray()
 
